@@ -1,61 +1,87 @@
-# 📦 API RESTful de Produtos
+# 📦 RESTful Products API
 
-## 📌 Sobre
+## 📌 About
 
-API desenvolvida em Node.js com Express com foco na **refatoração para padrões RESTful**, aplicando boas práticas de mercado como:
+This project is a RESTful API built with Node.js and Express, focused on applying industry best practices, including:
 
-* URIs semânticas (substantivos no plural)
-* Métodos HTTP corretos
-* Status codes adequados
-* Validação de dados
-* Padronização de respostas
+* Semantic URIs (plural nouns)
+* Proper HTTP methods
+* Correct status codes
+* Data validation
+* Standardized responses
 
 ---
 
-## ⚙️ Instalação das dependências
+## ⚙️ Installation
 
 ```bash
 npm init -y
-npm install express
-npm install colors
+npm install express colors
 ```
 
 ---
 
-## ▶️ Como rodar
+## ▶️ Running the application
 
 ```bash
-node server-restful.js
+node server.js
 ```
 
 ---
 
-## 🔄 Rodar com atualização automática
+## 🔄 Run with auto-reload
 
 ```bash
-node --watch server-restful.js
+node --watch server.js
 ```
 
 ---
 
-## 📁 Estrutura de pastas
+## 🌐 Server
 
 ```
-minha-api-restful/
+http://localhost:3000
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the root:
+
+```env
+PORT=3000
+```
+
+---
+
+## 📡 Headers
+
+All requests must include:
+
+```
+Content-Type: application/json
+```
+
+---
+
+## 📁 Project Structure
+
+```
+products-api/
 ├── utils/
 │   └── response.js
-├── screenshots-postman/
-│   ├── GET-produtos.png
+├── prints/
+│   ├── GET-produto.png
 │   ├── GET-404.png
-│   ├── POST-criar.png
-│   ├── POST-erro-400.png
-│   ├── PUT-produtos.png
-|   |── PUT-erro.png   
-│   ├── DELETE-Produtos.png
+│   ├── POST-create.png
+|   ├── POST-create-erro.png
+│   ├── POST-400.png
+│   ├── PUT-update.png
+│   ├── DELETE-produto.png
 |   ├── DELETE-erro.png
-|   ├── Log.png
-|
-├── server-restful.js
+│   ├── Logs.png
+├── server.js
 ├── package.json
 └── README.md
 ```
@@ -64,195 +90,201 @@ minha-api-restful/
 
 ## 🔗 Endpoints
 
-| Método | Rota          | Descrição                     |
-| ------ | ------------- | ----------------------------- |
-| GET    | /produtos     | Lista todos os produtos       |
-| GET    | /produtos/:id | Busca produto por ID          |
-| POST   | /produtos     | Cria novo produto             |
-| PUT    | /produtos/:id | Atualiza produto completo     |
-| PATCH  | /produtos/:id | Atualiza produto parcialmente |
-| DELETE | /produtos/:id | Remove produto                |
+| Method | Route          | Description                |
+| ------ | -------------- | -------------------------- |
+| GET    | /produtos      | List all products          |
+| GET    | /produtos/{id} | Get product by ID          |
+| POST   | /produtos      | Create a new product       |
+| PUT    | /produtos/{id} | Fully update a product     |
+| PATCH  | /produtos/{id} | Partially update a product |
+| DELETE | /produtos/{id} | Delete a product           |
+| GET    | /health        | API health check           |
 
 ---
 
-## 📥 Exemplo de requisição (POST)
+## 📥 Example Request (POST)
 
 ```json
 {
-  "nome": "Notebook",
-  "preco": 5000,
-  "estoque": 10,
-  "categoria": "Eletrônicos"
+  "name": "Laptop",
+  "price": 5000,
+  "stock": 10,
+  "category": "Electronics"
 }
 ```
 
 ---
 
-## 📤 Padrão de respostas
+## 📤 Response Pattern
 
-### ✅ Sucesso
+### ✅ Success
 
 ```json
 {
-  "tipo": "sucesso",
-  "cor": "green",
-  "mensagem": "Operação realizada com sucesso",
-  "dados": {}
+  "status": 200,
+  "type": "success",
+  "message": "Operation completed successfully",
+  "data": {}
 }
 ```
 
 ---
 
-### ❌ Erro
+### ❌ Error
 
 ```json
 {
-  "tipo": "erro",
-  "cor": "red",
-  "mensagem": "Recurso não encontrado"
+  "status": 404,
+  "error": "Not Found",
+  "message": "Product not found"
 }
 ```
 
 ---
 
-### ⚠️ Dados inválidos
+### ⚠️ Validation Error
 
 ```json
 {
-  "tipo": "invalido",
-  "cor": "orange",
-  "mensagem": "Nome e preço > 0 obrigatórios"
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Name and price must be greater than zero"
 }
 ```
 
 ---
 
-## 📊 Exemplos de respostas
+## 📊 Example Responses
 
-### GET /produtos — Sucesso (200)
+### GET /products — Success (200)
 
 ```json
 [
   {
     "id": 1,
-    "nome": "Notebook Gamer",
-    "preco": 7500,
-    "estoque": 30,
-    "categoria": "Eletrônicos"
+    "name": "Gaming Laptop",
+    "price": 7500,
+    "stock": 30,
+    "category": "Electronics"
   }
 ]
 ```
 
 ---
 
-### GET /produtos/999 — Não encontrado (404)
+### GET /products/{id} — Not Found (404)
 
 ```json
 {
-  "tipo": "erro",
-  "cor": "red",
-  "mensagem": "Produto não encontrado"
+  "status": 404,
+  "error": "Not Found",
+  "message": "Product not found"
 }
 ```
 
 ---
 
-### POST /produtos — Criado (201)
+### POST /products — Created (201)
 
 ```json
 {
-  "tipo": "sucesso",
-  "cor": "green",
-  "mensagem": "Produto criado com sucesso",
-  "dados": {
+  "status": 201,
+  "type": "success",
+  "message": "Product created successfully",
+  "data": {
     "id": 3,
-    "nome": "Mouse",
-    "preco": 100,
-    "estoque": 20,
-    "categoria": "Eletrônicos"
+    "name": "Mouse",
+    "price": 100,
+    "stock": 20,
+    "category": "Electronics"
   }
 }
 ```
 
 ---
 
-### POST /produtos — Erro (400)
+### POST /products — Validation Error (400)
 
 ```json
 {
-  "tipo": "invalido",
-  "cor": "orange",
-  "mensagem": "Nome e preço > 0 obrigatórios"
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Name and price must be greater than zero"
 }
 ```
 
 ---
 
-## 🧪 Testes realizados
+## 🧪 Tests
 
-Cenários testados no Postman:
+Tested scenarios using Postman:
 
 * ✅ GET /produtos → 200
-* ❌ GET /produtos/999 → 404
-* ✅ POST válido → 201
-* ❌ POST inválido → 400
+* ❌ GET /produtos/{id} → 404
+* ✅ POST valid → 201
+* ❌ POST invalid → 400
 * ✅ PUT → 200
 * ✅ PATCH → 200
 * ✅ DELETE → 204
 
+---
+## 📸 Test Evidence
 
-## Evidências de teste
+### 🖥️ Logger
+![Colored logger in terminal](./src/prints/Logs.png)
 
-### Logger no terminal
-![Logger colorido no terminal](./src/prints/Logs.png)
+---
 
-### Sucesso
+### ✅ Success
 
-#### GET /produtos — Lista todos (200)
-![Listar todos os produtos](./src/prints/GET-produtos.png)
+#### GET /produtos — List Products (200)
+![List products](./src/prints/GET-produtos.png)
 
-#### GET /produtos/3 — Busca por id (200)
-![Buscar produto por id](./src/prints/GET-produtos-3.png)
+#### GET /produtos/{id} — Get Product by ID (200)
+![Get product by id](./src/prints/GET-produtos-3.png)
 
-#### POST /produtos — Cadastro Produto (201)
-![Cadastro de produto](./src/prints/POST-criar.png)
+#### POST /produtos — Create Product (201)
+![Create product](./src/prints/POST-create.png)
 
-#### DELETE /produtos — Delete Produto(204)
-![Delete produto](./src/prints/DELETE-produtos.png)
+#### DELETE /produtos/{id} — Delete Product (204)
+![Delete product](./src/prints/DELETE-produtos.png)
 
-#### PATCH /produtos/:id — Atualização parcial (200)
-![Atualização Parcial de produto](./src/prints/UPDATE-Parcial%20-%20produtos.png)
+#### PATCH /produtos/{id} — Partially Update Product (200)
+![Partial update](./src/prints/UPDATE-Parcial%20-%20produtos.png)
 
-### Erros
+---
 
-#### GET /produtos/9 — Produto não encontrado (400)
-![Produto não encontrado](./src/prints/PUT-erro.png)
+### ❌ Errors
 
-#### GET /aaaa — Rota inexistente (404)
-![Rota não encontrada](./src/prints/Routes%20Null.png)
+#### GET /produtos/{id} — Product Not Found (404)
+![Product not found](./src/prints/PUT-erro.png)
 
+#### GET /invalid-route — Endpoint Not Found (404)
+![Route not found](./src/prints/GET-404.png)
+
+---
 
 ## 📝 Logger
 
-Todas as requisições são registradas no terminal:
+All requests are logged in the terminal:
 
 ```
 GET /produtos - 200 - 3ms
-POST /produtos - 201 - 0ms
-POST /produtos - 400 - 0ms
-GET /produtos - 200 - 0ms
-PUT /produtos/5 - 200 - 0ms
-DELETE /produtos/5 - 200 - 1ms
-POST /produtos - 400 - 0ms
+POST /produtos - 400 - 1ms
 POST /produtos - 201 - 1ms
-GET /produtos - 200 - 0ms
-PUT /produtos/5 - 400 - 0ms
-PUT /produtos/2 - 200 - 1ms
+PUT /produtos/999 - 404 - 1ms
+PUT /produtos/5 - 200 - 0ms
+DELETE /produtos/9999 - 404 - 1ms
+DELETE /produtos/5 - 200 - 0ms
+GET /aaaaaaa - 404 - 1ms
+PATCH /produtos/999999 - 404 - 1ms
+PATCH /produtos/5 - 404 - 0ms
+PATCH /produtos/2 - 400 - 1ms
+PATCH /produtos/2 - 200 - 0ms
 ```
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
 Elyton Moreira
-
