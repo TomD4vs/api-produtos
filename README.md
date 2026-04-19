@@ -16,7 +16,7 @@ This project is a RESTful API built with Node.js and Express, focused on applyin
 
 ```bash
 npm init -y
-npm install express colors
+npm install express colors dotenv
 ```
 
 ---
@@ -92,12 +92,12 @@ products-api/
 
 | Method | Route          | Description                |
 | ------ | -------------- | -------------------------- |
-| GET    | /produtos      | List all products          |
-| GET    | /produtos/{id} | Get product by ID          |
-| POST   | /produtos      | Create a new product       |
-| PUT    | /produtos/{id} | Fully update a product     |
-| PATCH  | /produtos/{id} | Partially update a product |
-| DELETE | /produtos/{id} | Delete a product           |
+| GET    | /products      | List all products          |
+| GET    | /products/{id} | Get product by ID          |
+| POST   | /products      | Create a new product       |
+| PUT    | /products/{id} | Fully update a product     |
+| PATCH  | /products/{id} | Partially update a product |
+| DELETE | /products/{id} | Delete a product           |
 | GET    | /health        | API health check           |
 
 ---
@@ -219,8 +219,8 @@ products-api/
 
 Tested scenarios using Postman:
 
-* ✅ GET /produtos → 200
-* ❌ GET /produtos/{id} → 404
+* ✅ GET /products → 200
+* ❌ GET /products/{id} → 404
 * ✅ POST valid → 201
 * ❌ POST invalid → 400
 * ✅ PUT → 200
@@ -231,36 +231,36 @@ Tested scenarios using Postman:
 ## 📸 Test Evidence
 
 ### 🖥️ Logger
-![Colored logger in terminal](./src/prints/Logs.png)
+![Colored logger in terminal](./src/prints/logs/Logs.png)
 
 ---
 
 ### ✅ Success
 
-#### GET /produtos — List Products (200)
-![List products](./src/prints/GET-produtos.png)
+#### GET /products — List Products (200)
+![List products](./src/prints/sucess/GET-products.png)
 
-#### GET /produtos/{id} — Get Product by ID (200)
-![Get product by id](./src/prints/GET-produtos-3.png)
+#### GET /products/{id} — Get Product by ID (200)
+![Get product by id](./src/prints/sucess/GET-product-id.png)
 
-#### POST /produtos — Create Product (201)
-![Create product](./src/prints/POST-create.png)
+#### POST /products — Create Product (201)
+![Create product](./src/prints/sucess/POST-products.png)
 
-#### DELETE /produtos/{id} — Delete Product (204)
-![Delete product](./src/prints/DELETE-produtos.png)
+#### DELETE /products/{id} — Delete Product (204)
+![Delete product](./src/prints/sucess/DELETE-products.png)
 
-#### PATCH /produtos/{id} — Partially Update Product (200)
-![Partial update](./src/prints/UPDATE-Parcial%20-%20produtos.png)
+#### PATCH /products/{id} — Partially Update Product (200)
+![Partial update](./src/prints/sucess/PATCH-product.png)
 
 ---
 
 ### ❌ Errors
 
-#### GET /produtos/{id} — Product Not Found (404)
-![Product not found](./src/prints/PUT-erro.png)
+#### GET /products/{id} — Product Not Found (404)
+![Product not found](./src/prints/errors/PATCH-erro.png)
 
 #### GET /invalid-route — Endpoint Not Found (404)
-![Route not found](./src/prints/GET-404.png)
+![Route not found](./src/prints/errors/GET-404.png)
 
 ---
 
@@ -269,18 +269,19 @@ Tested scenarios using Postman:
 All requests are logged in the terminal:
 
 ```
-GET /produtos - 200 - 3ms
-POST /produtos - 400 - 1ms
-POST /produtos - 201 - 1ms
-PUT /produtos/999 - 404 - 1ms
-PUT /produtos/5 - 200 - 0ms
-DELETE /produtos/9999 - 404 - 1ms
-DELETE /produtos/5 - 200 - 0ms
+GET /products - 200 - 2ms
+POST /products - 201 - 0ms
+PUT /products/5 - 200 - 1ms
+DELETE /products/5 - 200 - 1ms
+PATCH /products/2 - 200 - 1ms
 GET /aaaaaaa - 404 - 1ms
-PATCH /produtos/999999 - 404 - 1ms
-PATCH /produtos/5 - 404 - 0ms
-PATCH /produtos/2 - 400 - 1ms
-PATCH /produtos/2 - 200 - 0ms
+GET /health - 200 - 1ms
+POST /products - 400 - 1ms
+PUT /products/5 - 404 - 0ms
+GET /products - 200 - 1ms
+PUT /products/4 - 400 - 1ms
+PUT /products/88 - 404 - 1ms
+DELETE /products/78 - 404 - 0ms
 ```
 
 ---
