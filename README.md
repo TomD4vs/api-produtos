@@ -72,15 +72,21 @@ products-api/
 ├── utils/
 │   └── response.js
 ├── prints/
-│   ├── GET-produto.png
-│   ├── GET-404.png
-│   ├── POST-create.png
-|   ├── POST-create-erro.png
-│   ├── POST-400.png
-│   ├── PUT-update.png
-│   ├── DELETE-produto.png
-|   ├── DELETE-erro.png
-│   ├── Logs.png
+│   ├── errors/
+│   │   ├── DELETE-erro.png
+│   │   ├── GET-404.png
+│   │   ├── PATCH-erro.png
+│   │   ├── POST-create-erro.png
+│   │   └── PUT-erro.png
+│   ├── logs/
+│   │   └── Logs.png
+│   └── sucess/
+│       ├── DELETE-products.png
+│       ├── GET-product-id.png
+│       ├── GET-products.png
+│       ├── PATCH-product.png
+│       ├── POST-products.png
+│       └── PUT-products.png
 ├── server.js
 ├── package.json
 └── README.md
